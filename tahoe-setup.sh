@@ -2,13 +2,15 @@
 TAHOE_ROOT=/home/tahoe-lafs
 TAHOE_HOST=
 TAHOE_DIRCAP=
-TAHOE_PORT=7790
 
 TAHOE_INTRODUCER_ENABLE=yes
 TAHOE_INTRODUCER_STRING=
+TAHOE_INTRODUCER_PORT=7790
 TAHOE_INTRODUCER_ROOT=$TAHOE_ROOT/tahoe-introducer
 
+TAHOE_INTRODUCER_PORT=7791
 TAHOE_NODE_ROOT=$TAHOE_ROOT/tahoe-node
+
 TAHOE_CLIENT_ROOT=$HOME/.tahoe
 
 
@@ -79,7 +81,7 @@ if [ "$TAHOE_INTRODUCER_ENABLE" = "yes" ]; then
 ##
 tahoe create-introducer $TAHOE_INTRODUCER_ROOT
 sed -i \
-            -e"s/^.*tub.port.*=.*$/tub.port = $TAHOE_PORT/" \
+            -e"s/^.*tub.port.*=.*$/tub.port = $TAHOE_INTRODUCER_PORT/" \
             -e "s/^.*tub.location.*=.*$/tub.location = $TAHOE_HOST:$TAHOE_PORT,127.0.0.1:$TAHOE_PORT/" \
             $TAHOE_INTRODUCER_ROOT/tahoe.cfg
 tahoe start -d $TAHOE_INTRODUCER_ROOT
@@ -94,6 +96,7 @@ if [ "$TAHOE_INTRODUCER_ENABLE" = "yes" ]; then
 fi
 sed -i \
             -e "s/^.*nickname.*=.*$/nickname = $TAHOE_HOST/" \
+            -e"s/^.*tub.port.*=.*$/tub.port = $TAHOE_NODE_PORT/" \
             -e "s/^.*reserved_space.*=.*$/reserved_space = 10G/" \
 	    -e "s|^.*introducer.furl.*=.*$|introducer.furl = $TAHOE_INTRODUCER_STRING|" \
 	    -e "s/^.*web.port.*=.*$/web.port = tcp:3456:interface=127.0.0.1/" \
