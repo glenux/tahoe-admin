@@ -50,9 +50,10 @@ do
 		-h)
 			echo "Usage $0 [options]"
 			echo ""
-			echo "Options"
+			echo "Options:"
 			echo "-n hostname	Set node host name (mandatory)"
 			echo "-i str		Set introducer string (disable local introducer)"
+			echo "-d dircap		Set filesystem's root dircap"
 			echo "-h		Show this help"
 			exit 0
 			;;
