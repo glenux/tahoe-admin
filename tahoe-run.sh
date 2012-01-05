@@ -1,4 +1,7 @@
 #!/bin/sh
+
+set -u
+
 TAHOE_ROOT=/home/tahoe-lafs
 
 if [ -d $TAHOE_ROOT/tahoe-introducer ]; then
@@ -12,3 +15,8 @@ if [ -d $TAHOE_ROOT/tahoe-introducer ]; then
 fi
 tahoe start -d $TAHOE_ROOT/tahoe-node
 tahoe start -d ~/.tahoe
+
+# check filesystem
+tahoe deep-check --repair --add-lease
+
+
